@@ -1,7 +1,7 @@
 package entity;
 
 public class Carro {
-	private String fotos_carro[] = {"teste.jpg", "teste1.jpg"};
+	private String fotos_carro[] = {"teste2.jpg", "teste.jpg"};
 
 	public String[] getFotos_carro() {
 		return fotos_carro;

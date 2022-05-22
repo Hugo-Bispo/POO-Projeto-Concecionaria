@@ -11,49 +11,82 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Painel_Fotos extends Application {
+	
+	private static int counter = 0;
 	control.FotosControll controle_fotos = new FotosControll();
 	private ImageView iv;
     private Image[] images;
+    String caminho_fotos[];
 	
-	@Override
-	public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws Exception {
 
 		BorderPane pane = new BorderPane();
 		Button buttom_proximo = new Button(">");
 		Button buttom_anterior = new Button("<");
+		
 		buttom_proximo.setPrefSize(100,100);
 		buttom_anterior.setPrefSize(100,100);
 		
+ 		caminho_fotos = controle_fotos.get_urls_fotos();
+		images = new Image[caminho_fotos.length];
 		
 		
-		Image img = new Image(getClass().getResourceAsStream("teste.jpg"));
- 		String caminho_image = "";
+        for(int i=0; i< caminho_fotos.length; i++) {
+        	System.out.println(caminho_fotos[i]);
+            images[i] = new Image(getClass().getResourceAsStream(caminho_fotos[i]));
+        }	
 		
-//		images = new Image[5];
-//		
-		
-        ImageView iv2 = new ImageView();
-        iv2.setImage(img);
-        iv2.setFitWidth(500);
-        iv2.setPreserveRatio(true);
-        iv2.setSmooth(true);
-        iv2.setCache(true);
+        iv = new ImageView(images[counter++]);
         
-		pane.setCenter(iv2);
+		buttom_proximo.setOnAction((e) -> {
+			swapImage(true);
+		});
+		
+		buttom_anterior.setOnAction((e) -> {
+			swapImage(false);
+		});
+		
+        iv.setFitWidth(500);
+        iv.setPreserveRatio(true);
+        iv.setSmooth(true);
+        iv.setCache(true);
+        
+		pane.setCenter(iv);
 		pane.setRight(buttom_proximo);
 		pane.setLeft(buttom_anterior);
 		
-		buttom_proximo.setOnAction((e) -> {
-			controle_fotos.proxima_foto();
-		});
-		
-		Scene snc = new Scene(pane, 1280, 720 );
+		Scene snc = new Scene(pane);
 		
 		stage.setScene(snc);
+		stage.sizeToScene();
+		
+		
 		stage.show();
 	}
+	
+    private void swapImage(Boolean b) {
+    	if(b == true) {
+    		counter++;
+    		if(counter >= caminho_fotos.length) {
+    			counter = 0;
+    		}else {
+    			
+    		}
+    		
+    	}else if(b == false) {
+    		counter--;
+    		if(counter < 0) {
+    			counter = caminho_fotos.length - 1;
+    		}else {
+    			
+    		}
+    	}
+		iv.setImage(images[counter]);
+    	System.out.println(counter);
+    }
 
 	public static void main(String[] args) {
+		
 		Application.launch(Painel_Fotos.class, args);
 	}
 
