@@ -1,6 +1,6 @@
 package control;
 
-import dao.CarroDAOImpl;
+import dao.DAO_Carro;
 import entity.Carro;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -9,7 +9,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.control.ListCell;
 
 public class CarroController {
-	CarroDAOImpl dao = new CarroDAOImpl();
+	DAO_Carro dao = new DAO_Carro();
 
 	private StringProperty placa = new SimpleStringProperty("");
 	private StringProperty modelo = new SimpleStringProperty("");
@@ -137,7 +137,7 @@ public class CarroController {
 	}
 
 	public void pesquisar() {
-		Carro c = dao.consultar_total(placa.get());
+		Carro c = dao.consultar(placa.get());
 		entityToBoundary(c);
 	}
 }
