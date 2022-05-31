@@ -1,5 +1,6 @@
 package boundary;
 
+import control.VendasCotroller;
 import control.VendedorController;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
@@ -15,7 +16,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Vendas_Boundary extends Application {
-	VendedorController control = new VendedorController();
+	VendedorController controlVendedor = new VendedorController();
+	VendasCotroller controlVenda = new VendasCotroller();
 
 	private Button btnCriar = new Button("Criar");
 	private Button btnVender = new Button("Vender");
@@ -50,14 +52,14 @@ public class Vendas_Boundary extends Application {
 		vendedor_pane.setHgap(5);
 		vendedor_pane.setVgap(10);
 		
-		Bindings.bindBidirectional(txtFuncionalVendedor.textProperty(), control.funcionalProperty());
-		Bindings.bindBidirectional(txtNome.textProperty(), control.nomeProperty());
-		Bindings.bindBidirectional(txtTelefone.textProperty(), control.telefoneProperty());
+		Bindings.bindBidirectional(txtFuncionalVendedor.textProperty(), controlVendedor.funcionalProperty());
+		Bindings.bindBidirectional(txtNome.textProperty(), controlVendedor.nomeProperty());
+		Bindings.bindBidirectional(txtTelefone.textProperty(), controlVendedor.telefoneProperty());
 		
-		btnCriar.setOnAction( e -> control.adicionar());
-		btnPesquisar.setOnAction( e -> control.pesquisar());
+		btnCriar.setOnAction( e -> controlVendedor.adicionar());
+		btnPesquisar.setOnAction( e -> controlVendedor.pesquisar());
 		
-//		Gridpane para Cadastrar Carro
+//		Gridpane para Cadastrar Venda de carro
 		GridPane vendas_pane = new GridPane();
 		vendas_pane.add(new Text("Cadastrar Venda"), 0, 0);
 		vendas_pane.add(new Label("Funcional:"), 0, 1);
@@ -69,6 +71,11 @@ public class Vendas_Boundary extends Application {
 		vendas_pane.add(btnVender, 0, 4);
 		vendas_pane.setHgap(5);
 		vendas_pane.setVgap(10);
+		Bindings.bindBidirectional(txtFuncionalVendas.textProperty(), controlVenda.funcionalProperty());
+		Bindings.bindBidirectional(txtPlaca.textProperty(), controlVenda.placaProperty());
+		Bindings.bindBidirectional(calendarDataVenda.valueProperty(), controlVenda.data_vendaObjectProperty());
+		
+		btnVender.setOnAction( e -> controlVenda.adicionar());
 		
 //		Gridpane Uniao Vendedor e Carros
 		GridPane vendas_vendedor_pane = new GridPane();

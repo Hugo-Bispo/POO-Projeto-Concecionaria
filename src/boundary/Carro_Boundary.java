@@ -4,6 +4,7 @@ import control.CarroController;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,16 +28,18 @@ import javafx.util.converter.NumberStringConverter;
 public class Carro_Boundary extends Application {
 	control.CarroController control_carro = new CarroController();
 
+	private TextField txtPlaca = new TextField();
 	private Button btnPesquisar = new Button("Pesquisar");
 	private Button btnCriar = new Button("Criar");
 	
-	private TextField txtPlaca = new TextField();
+	private TextField txtValor = new TextField();
+	private TextField txtEstado = new TextField();
+
 	private TextField txtModelo = new TextField();
 	private TextField txtVersao = new TextField();
 	private TextField txtMarca = new TextField();
 	private TextField txtAno = new TextField();
 	private TextField txtQuilometragem = new TextField();
-//	private String Tipo_Combusivel[] = { "Gasolina", "Etanol", "Flex", "GNV" };
 	private ComboBox<String> boxCombustivel = new ComboBox<String>(FXCollections.observableArrayList("Gasolina", "Etanol", "Flex", "GNV"));
 	private TextField txtCilindrada = new TextField();
 	private ComboBox<String> boxCambio = new ComboBox<String>(FXCollections.observableArrayList("Manual", "Automatico", "Automatizado"));
@@ -51,13 +54,15 @@ public class Carro_Boundary extends Application {
 				BackgroundSize.DEFAULT);
 
 		BorderPane border_pane = new BorderPane();
-		BorderPane border_pane_indice = new BorderPane();
+//		BorderPane border_pane_indice = new BorderPane();
 
+
+
+
+//		GridPane Pesquisar-Criar Carro
 		GridPane pane_pesquisar = new GridPane();
-		GridPane pane_info_carro = new GridPane();
-
 		Text Text_Placa = new Text("Placa do Carro:");
-
+		
 		pane_pesquisar.add(Text_Placa, 0, 0);
 		pane_pesquisar.add(txtPlaca, 2, 0);
 		pane_pesquisar.add(btnPesquisar, 3, 0);
@@ -65,9 +70,25 @@ public class Carro_Boundary extends Application {
 		pane_pesquisar.setHgap(5);
 		pane_pesquisar.setMinSize(200, 200);
 		pane_pesquisar.setAlignment(Pos.CENTER);
-
-		border_pane_indice.setCenter(pane_pesquisar);
-		border_pane_indice.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
+//		border_pane_indice.setCenter(pane_pesquisar);
+		pane_pesquisar.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
+		
+		Bindings.bindBidirectional(txtPlaca.textProperty(), control_carro.placaProperty());
+		
+		btnCriar.setOnAction( e -> control_carro.adicionar());
+		btnPesquisar.setOnAction( e -> control_carro.pesquisar());
+		
+//		GridPane Situacao do Carro
+		GridPane situacao_pane = new GridPane();
+		situacao_pane.add(new Label("Valor: "), 0, 0);
+		situacao_pane.add(txtValor, 1, 0);
+		situacao_pane.add(new Label("Estado: "), 0, 1);
+		situacao_pane.add(txtEstado, 1, 1);
+		situacao_pane.setAlignment(Pos.CENTER);
+		situacao_pane.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
+		
+//		GridPane Informacao do Carro
+		GridPane pane_info_carro = new GridPane();
 		
 		pane_info_carro.add(new Label("Modelo: "), 0, 0);
 		pane_info_carro.add(txtModelo, 1, 0);
@@ -90,9 +111,8 @@ public class Carro_Boundary extends Application {
 		pane_info_carro.setStyle("-fx-font: 18 arial;-fx-font-weight: bold");
 		pane_info_carro.setHgap(5);
 		pane_info_carro.setVgap(20);
-		pane_info_carro.setAlignment(Pos.CENTER);
+		pane_info_carro.setAlignment(Pos.BOTTOM_CENTER);
 		
-		Bindings.bindBidirectional(txtPlaca.textProperty(), control_carro.placaProperty());
 		Bindings.bindBidirectional(txtModelo.textProperty(), control_carro.modeloProperty());
 		Bindings.bindBidirectional(txtVersao.textProperty(), control_carro.versaoProperty());
 		Bindings.bindBidirectional(txtMarca.textProperty(), control_carro.marcaProperty());
@@ -103,15 +123,10 @@ public class Carro_Boundary extends Application {
 		Bindings.bindBidirectional(boxCambio.valueProperty(), control_carro.cambioProperty());
 		Bindings.bindBidirectional(txtCor.textProperty(), control_carro.corProperty());
 		
-		btnCriar.setOnAction( e -> control_carro.adicionar());
 		
-		btnPesquisar.setOnAction( e -> control_carro.pesquisar());
-
-//		border_pane_indice.setAlignment(pane_pesquisar, Pos.CENTER);
-		border_pane.setTop(border_pane_indice);
-		border_pane.setCenter(pane_info_carro);
-//		border_pane.setCenter(pane_func);
-		border_pane.setStyle("-fx-text-fill: white");
+		border_pane.setTop(pane_pesquisar);
+		border_pane.setCenter(situacao_pane);
+		border_pane.setBottom(pane_info_carro);
 //		border_pane.setBackground(new Background(background));
 		Scene snc = new Scene(border_pane, 1280, 720);
 		
