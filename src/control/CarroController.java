@@ -12,6 +12,9 @@ public class CarroController {
 	DAO_Carro dao = new DAO_Carro();
 
 	private StringProperty placa = new SimpleStringProperty("");
+	private StringProperty valor = new SimpleStringProperty("");
+	private StringProperty agencia = new SimpleStringProperty("");
+	private StringProperty situacao = new SimpleStringProperty("");
 	private StringProperty modelo = new SimpleStringProperty("");
 	private StringProperty versao = new SimpleStringProperty("");
 	private StringProperty marca = new SimpleStringProperty("");
@@ -27,6 +30,18 @@ public class CarroController {
 
 	public StringProperty placaProperty() {
 		return placa;
+	}
+	
+	public StringProperty valorProperty() {
+		return valor;
+	}
+	
+	public StringProperty agenciaProperty() {
+		return agencia;
+	}
+	
+	public StringProperty situacaoProperty() {
+		return situacao;
 	}
 
 	public StringProperty modeloProperty() {
@@ -76,7 +91,10 @@ public class CarroController {
 		} else {
 			erroEntity += "Placa Invalida ";
 		}
-
+		
+		c.setValor(Double.parseDouble(valor.get()));
+//		c.setSituacao(situacao.get());
+		c.setAgencia(agencia.get());
 		c.setModelo(modelo.get());
 		c.setVersao(versao.get());
 		c.setMarca(marca.get());
@@ -109,6 +127,15 @@ public class CarroController {
 	public void entityToBoundary(Carro c) {
 		if (c != null) {
 			placa.set(c.getPlaca());
+			valor.set(String.valueOf(c.getValor()));
+			
+			if(c.getSituacao().contains("D")) {
+				situacao.set("Disponivel");
+			}else if(c.getSituacao().contains("V")) {
+				situacao.set("Vendido");
+			}
+
+			agencia.set(c.getAgencia());
 			modelo.set(c.getModelo());
 			versao.set(c.getVersao());
 			marca.set(c.getMarca());
@@ -123,16 +150,8 @@ public class CarroController {
 
 	public void adicionar() {
 		Carro c = new Carro();
+		System.out.println("Teste");
 		c = boundaryToEntity();
-		System.out.println("Placa " + c.getPlaca());
-		System.out.println("Modelo " + c.getModelo());
-		System.out.println("Versao " + c.getVersao());
-		System.out.println("Ano " + c.getAno());
-		System.out.println("Quilometragem " + c.getQuilometragem());
-		System.out.println("Cilindrada" + c.getCilindrada());
-		System.out.println("Combustivel " + c.getCombustivel());
-		System.out.println("Cambio " + c.getCambio());
-		System.out.println("Cor " + c.getCor());
 		dao.inserir(c);
 	}
 

@@ -12,6 +12,8 @@ public class Carro {
 	private String cambio;
 	private String cor;
 	private double valor;
+	private String situacao;
+	private String agencia;
 	
 	public String getPlaca() {
 		return placa;
@@ -78,5 +80,17 @@ public class Carro {
 	}
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+	public String getSituacao() {
+		return situacao;
+	}
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
+	public String getAgencia() {
+		return agencia;
+	}
+	public void setAgencia(String agencia) {
+		this.agencia = agencia;
 	}
 }

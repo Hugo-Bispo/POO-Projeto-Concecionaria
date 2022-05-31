@@ -4,8 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-
-import entity.Carro;
 import entity.Venda;
 
 public class DAO_Venda extends Connector_DB implements DAO_Interface<Venda>{
@@ -44,7 +42,7 @@ public class DAO_Venda extends Connector_DB implements DAO_Interface<Venda>{
 	}
 	
 	public void alterarCondicao(Venda venda) {
-		String sql = "UPDATE carro set situacao='v' where placa= (?)";
+		String sql = "UPDATE carro set situacao='V' where placa= (?)";
 		try {
 			PreparedStatement stmt = getCon().prepareStatement(sql);
 			stmt.setString(1, venda.getPlaca());

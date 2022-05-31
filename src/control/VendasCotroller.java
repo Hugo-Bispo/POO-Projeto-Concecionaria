@@ -66,6 +66,7 @@ public class VendasCotroller implements Controller_Interfaces<Venda>{
 		Venda v = new Venda();
 		v = boundaryToEntity();
 		dao.inserir(v);
+		dao.alterarCondicao(v);
 	}
 
 	@Override
