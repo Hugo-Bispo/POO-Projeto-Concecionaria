@@ -86,75 +86,76 @@ public class Carro_Boundary extends Application {
 		situacao_pane.setAlignment(Pos.CENTER);
 		situacao_pane.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
 
-		TilePane paneModelo = new TilePane();
-		paneModelo.getChildren().addAll(new Label("Modelo:"), textModelo);
+		GridPane paneModelo = new GridPane();
+		paneModelo = TextStyle("Modelo:", textModelo);
 
-		TilePane paneVersao = new TilePane();
-		paneVersao.getChildren().addAll(new Label("Versão:"), textVersao);
+		GridPane paneVersao = new GridPane();
+		paneVersao.add(new Label("Versão:"), 0, 0);
+		paneVersao.add(textVersao, 1, 0);
 
-		TilePane paneMarca = new TilePane();
-		paneMarca.getChildren().addAll(new Label("Maraca:"), textMarca);
+		GridPane paneMarca = new GridPane();
+		paneMarca.add(new Label("Marca:"), 0, 0);
+		paneMarca.add(textMarca, 1, 0);
 
-		TilePane paneValor = new TilePane();
-		paneValor.getChildren().addAll(new Label("Valor:"), textValor);
+		GridPane paneValor = new GridPane();
+		paneValor.add(new Label("Valor:"), 0, 0);
+		paneValor.add(textValor, 1, 0);
 
-		TilePane paneDisponibilidade = new TilePane();
-		paneDisponibilidade.getChildren().addAll(new Label("Disponiblidade:"), textDisponibilidade);
+		GridPane paneDisponibilidade = new GridPane();
+		paneDisponibilidade.add(new Label("Disponiblidade:"), 0, 0);
+		paneDisponibilidade.add(textDisponibilidade, 1, 0);
 
-		TilePane paneAgencia = new TilePane();
-		paneAgencia.getChildren().addAll(new Label("Agência:"), textAgencia);
+		GridPane paneAgencia = new GridPane();
+		paneAgencia.add(new Label("Agência:"), 0, 0);
+		paneAgencia.add(textAgencia, 1, 0);
 
-		TilePane paneAno = new TilePane();
-		paneAno.getChildren().addAll(new Label("Ano:"), textAno);
+		GridPane paneAno = new GridPane();
+		paneAno.add(new Label("Ano:"), 0, 0);
+		paneAno.add(textAno, 1, 0);
 
-		TilePane paneQuilometragem = new TilePane();
-		paneQuilometragem.getChildren().addAll(new Label("Quilometragem:"), textQuilometragem);
+		GridPane paneQuilometragem = new GridPane();
+		paneQuilometragem.add(new Label("Quilometragem:"), 0, 0);
+		paneQuilometragem.add(textQuilometragem, 1, 0);
 
-		TilePane paneCilindrada = new TilePane();
-		paneCilindrada.getChildren().addAll(new Label("Cilindrada:"), textCilindrada);
+		GridPane paneCilindrada = new GridPane();
+		paneCilindrada.add(new Label("Cilindrada:"), 0, 0);
+		paneCilindrada.add(textCilindrada, 1, 0);
 
-		TilePane paneCombustivel = new TilePane();
-		paneCombustivel.getChildren().addAll(new Label("Combustivel:"), textCombustivel);
+		GridPane paneCombustivel = new GridPane();
+		paneCombustivel.add(new Label("Combustivel:"), 0, 0);
+		paneCombustivel.add(textCombustivel, 1, 0);
 
-		TilePane paneCambio = new TilePane();
-		paneCambio.getChildren().addAll(new Label("Câmbio:"), textCambio);
+		GridPane paneCambio = new GridPane();
+		paneCambio.add(new Label("Câmbio:"), 0, 0);
+		paneCambio.add(textCambio, 1, 0);
 
-		TilePane paneCor = new TilePane();
-		paneCor.getChildren().addAll(new Label("Cor:"), textCor);
+		GridPane paneCor = new GridPane();
+		paneCor.add(new Label("Cor:"), 0, 0);
+		paneCor.add(textCor, 1, 0);
 
 //		GridPane Informacao do Carro
 		GridPane pane_info_carro = new GridPane();
 
 //		pane_info_carro.add(new Label("Modelo: "), 0, 0);
 //		pane_info_carro.add(textModelo, 1, 0);
-		pane_info_carro.add(paneModelo, 1, 0);
-		pane_info_carro.add(new Label("Versão: "), 2, 0);
-		pane_info_carro.add(textVersao, 3, 0);
-		pane_info_carro.add(new Label("Marca: "), 4, 0);
-		pane_info_carro.add(textMarca, 5, 0);
-		pane_info_carro.add(new Label("Valor: "), 0, 1);
-		pane_info_carro.add(textValor, 1, 1);
-		pane_info_carro.add(new Label("Disponibilidade: "), 2, 1);
-		pane_info_carro.add(textDisponibilidade, 3, 1);
-		pane_info_carro.add(new Label("Agência: "), 4, 1);
-		pane_info_carro.add(textAgencia, 5, 1);
-		pane_info_carro.add(new Label("Ano: "), 0, 2);
-		pane_info_carro.add(textAno, 1, 2);
-		pane_info_carro.add(new Label("Quilometragem: "), 2, 2);
-		pane_info_carro.add(textQuilometragem, 3, 2);
-		pane_info_carro.add(new Label("Cilindrada:"), 4, 2);
-		pane_info_carro.add(textCilindrada, 5, 2);
-		pane_info_carro.add(new Label("Combustivel: "), 0, 3);
-		pane_info_carro.add(textCombustivel, 1, 3);
-		pane_info_carro.add(new Label("Câmbio: "), 2, 3);
-		pane_info_carro.add(textCambio, 3, 3);
-		pane_info_carro.add(new Label("Cor: "), 4, 3);
-		pane_info_carro.add(textCor, 5, 3);
+		pane_info_carro.add(paneModelo, 0, 0);
+		pane_info_carro.add(paneVersao, 1, 0);
+		pane_info_carro.add(paneMarca, 2, 0);
+		pane_info_carro.add(paneValor, 0, 1);
+		pane_info_carro.add(paneDisponibilidade, 1, 1);
+		pane_info_carro.add(paneAgencia, 2, 1);
+		pane_info_carro.add(paneAno, 0, 2);
+		pane_info_carro.add(paneQuilometragem, 1, 2);
+		pane_info_carro.add(paneCilindrada, 2, 2);
+		pane_info_carro.add(paneCombustivel, 0, 3);
+		pane_info_carro.add(paneCambio, 1, 3);
+		pane_info_carro.add(paneCor, 2, 3);
 		pane_info_carro.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
-		pane_info_carro.setHgap(100);
+		pane_info_carro.setHgap(200);
 		pane_info_carro.setVgap(20);
-		pane_info_carro.setMinSize(1280, 500);
-		pane_info_carro.setMaxSize(1280, 500);
+
+		pane_info_carro.setMinSize(1100, 500);
+		pane_info_carro.setMaxSize(1100, 500);
 		pane_info_carro.setAlignment(Pos.CENTER);
 
 		Bindings.bindBidirectional(textModelo.textProperty(), control_carro.modeloProperty());
@@ -183,6 +184,20 @@ public class Carro_Boundary extends Application {
 		stage.setResizable(false);
 		stage.setScene(snc);
 		stage.show();
+	}
+
+	public GridPane TextStyle(String textIndice, Text textButton) {
+		GridPane paneStyle = new GridPane();
+		paneStyle.add(new Label(textIndice), 0, 0);
+		paneStyle.add(textButton, 1, 0);
+		paneStyle.setMinSize(300, 50);
+		paneStyle.setMaxSize(300, 50);
+		paneStyle.setAlignment(Pos.CENTER_LEFT);
+		paneStyle.setStyle("-fx-background-radius: 300px;"
+					+ 	"-fx-border-radius: 300px;\r\n" + "    -fx-border-width: 5px;\r\n"
+				+ "    -fx-border-color: black;");
+
+		return paneStyle;
 	}
 
 	public void cadastrar_carro() {
