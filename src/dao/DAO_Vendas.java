@@ -64,7 +64,6 @@ public class DAO_Vendas extends Connector_DB implements DAO_Interface<Venda> {
 				carro_venda.setData_venda(rs.getDate("data_venda").toLocalDate());
 				carro_venda.setValor(rs.getDouble("valor"));
 				lista.add(carro_venda);
-				lista.toString();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
