@@ -4,20 +4,27 @@ import control.VendasCotroller;
 import control.VendedorController;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Vendas_Boundary extends Application {
+public class Boundary_Vendas extends Application {
+	VendasCotroller control = new VendasCotroller();
 	VendedorController controlVendedor = new VendedorController();
 	VendasCotroller controlVenda = new VendasCotroller();
 
@@ -30,30 +37,32 @@ public class Vendas_Boundary extends Application {
 
 	private DatePicker calendarDataVenda = new DatePicker();
 
-	private ComboBox<String> boxTypePesquisa = new ComboBox<String>(
-			FXCollections.observableArrayList("Codº Vendedor", "Modelo", "Placa", "Data"));
-
 	private Button btnPesquisar = new Button("Pesquisar");
 
 	public void start(Stage stage) throws Exception {
-		BorderPane border_pane = new BorderPane();
 		
+		BackgroundImage background = new BackgroundImage(new Image(getClass().getResourceAsStream("backgound.jpg")),
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+				BackgroundSize.DEFAULT);
+		
+		BorderPane border_pane = new BorderPane();
+
 //		TilePane Titulo e Button Cadastrar Cliente
 		TilePane index_pane = new TilePane();
-		index_pane.getChildren().addAll(new Label("Cadastro de Vendas"), btnNovoFuncionario);
+		index_pane.getChildren().addAll(TextStyle("Cadastro de Vendas"), btnNovoFuncionario);
 		index_pane.setHgap(100);
 		index_pane.setAlignment(Pos.CENTER);
 		index_pane.setStyle("-fx-font: 24 arial;-fx-font-weight: bold");
-		
+
 		btnNovoFuncionario.setOnAction(e -> cadastrar_vendedor());
 
 //		Gridpane para Cadastrar Venda de carro
 		GridPane vendas_pane = new GridPane();
-		vendas_pane.add(new Label("Codº Funcionario:"), 0, 0);
+		vendas_pane.add(TextStyle("Codº Vendedor:"), 0, 0);
 		vendas_pane.add(txtFuncionalVendas, 1, 0);
-		vendas_pane.add(new Label("Placa Carro:"), 0, 1);
+		vendas_pane.add(TextStyle("Placa Carro:"), 0, 1);
 		vendas_pane.add(txtPlaca, 1, 1);
-		vendas_pane.add(new Label("Data venda:"), 0, 2);
+		vendas_pane.add(TextStyle("Data venda:"), 0, 2);
 		vendas_pane.add(calendarDataVenda, 1, 2);
 		vendas_pane.add(btnVender, 1, 3);
 		vendas_pane.setHgap(5);
@@ -66,34 +75,36 @@ public class Vendas_Boundary extends Application {
 
 		btnVender.setOnAction(e -> controlVenda.adicionar());
 
-		border_pane.setTop(vendas_pane);
-
 //		GridPane Botões Pesquisa
 		GridPane consulta_pane = new GridPane();
-		consulta_pane.add(new Label("Pesquisar Vendas por: "), 0, 0);
-		consulta_pane.add(boxTypePesquisa, 1, 0);
-		consulta_pane.add(new Label("Valor de Pesquisa: "), 0, 1);
-		consulta_pane.add(txtValuePesquisa, 1, 1);
-		consulta_pane.add(btnPesquisar, 3, 1);
+		consulta_pane.add(TextStyle("Pesquisar Vendas por Vendedor"), 0, 0);
+		consulta_pane.add(txtValuePesquisa, 0, 1);
+		consulta_pane.add(btnPesquisar, 1, 1);
 		consulta_pane.setHgap(5);
 		consulta_pane.setVgap(10);
 		consulta_pane.setStyle("-fx-font: 18 arial;-fx-font-weight: bold");
-		
+
+		Bindings.bindBidirectional(txtValuePesquisa.textProperty(), controlVenda.txtValuePesquisaProperty());
+
+		btnPesquisar.setOnAction(e -> controlVenda.pesquisar());
+
 //		União GridPane Pesquisa e Cadastrar Venda
 		GridPane PesquisaCadastra_pane = new GridPane();
 		PesquisaCadastra_pane.add(vendas_pane, 0, 0);
 		PesquisaCadastra_pane.add(consulta_pane, 1, 0);
 		PesquisaCadastra_pane.setAlignment(Pos.CENTER);
 		PesquisaCadastra_pane.setHgap(50);
-		
-		
-		
+
 //		BorderPane Definindo Posiçoes
 		border_pane.setTop(index_pane);
 		border_pane.setCenter(PesquisaCadastra_pane);
+		border_pane.setBottom(control.getTable());
+		border_pane.setBackground(new Background(background));
+		BorderPane.setAlignment(control.getTable(), Pos.CENTER);
 
 		Scene snc = new Scene(border_pane, 1280, 720);
 
+		stage.setTitle("Controle de Vendas");
 		stage.setResizable(false);
 		stage.setScene(snc);
 		stage.show();
@@ -101,7 +112,7 @@ public class Vendas_Boundary extends Application {
 	}
 
 	public void cadastrar_vendedor() {
-		Vendedor_Boundary vendedor = new Vendedor_Boundary();
+		SubBoundary_Vendedor vendedor = new SubBoundary_Vendedor();
 		try {
 			vendedor.start(new Stage());
 		} catch (Exception e1) {
@@ -110,8 +121,24 @@ public class Vendas_Boundary extends Application {
 
 	}
 
+	public GridPane GridStyle(GridPane grid) {
+		GridPane paneStyle = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		grid.setStyle("-fx-text-fill: white;-fx-background-radius: 0px;-fx-border-radius: 0px;"
+				+ "-fx-border-width: 5px;-fx-border-color: white;");
+
+		return paneStyle;
+	}
+	
+	public Text TextStyle(String texto) {
+		Text text = new Text(texto);
+		text.setFill(Color.WHITE);
+		text.setStyle("-fx-font: 24 arial;-fx-font-weight: bold;");
+		return text;
+	}
+
 	public static void main(String[] args) {
-		Application.launch(Vendas_Boundary.class, args);
+		Application.launch(Boundary_Vendas.class, args);
 	}
 
 }

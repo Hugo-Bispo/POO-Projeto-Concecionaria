@@ -12,6 +12,7 @@ public class VendedorController implements Controller_Interfaces<Vendedor> {
 	private StringProperty nome = new SimpleStringProperty("");
 	private StringProperty telefone = new SimpleStringProperty("");
 
+
 	public StringProperty funcionalProperty() {
 		return funcional;
 	}

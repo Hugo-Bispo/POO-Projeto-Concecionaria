@@ -14,7 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Vendedor_Boundary extends Application {
+public class SubBoundary_Vendedor extends Application {
 	VendedorController controlVendedor = new VendedorController();
 	VendasCotroller controlVenda = new VendasCotroller();
 
@@ -24,8 +24,7 @@ public class Vendedor_Boundary extends Application {
 	private TextField txtTelefone = new TextField();
 	private Button btnPesquisar = new Button("Pesquisar");
 	
-	public void start(Stage stage) throws Exception {
-		
+	public void start(Stage stage) throws Exception {		
 		BorderPane tela_pane = new BorderPane();
 
 //		Gridpane para Cadastrar Vendedor
@@ -44,7 +43,6 @@ public class Vendedor_Boundary extends Application {
 		vendedor_pane.setStyle("-fx-font: 20 arial;-fx-font-weight: bold");
 		vendedor_pane.setAlignment(Pos.CENTER);
 		
-//		tela_pane.setTop(new Text("Cadastrar Vendedor"));
 		tela_pane.setCenter(vendedor_pane);
 		
 		Bindings.bindBidirectional(txtFuncionalVendedor.textProperty(), controlVendedor.funcionalProperty());
@@ -55,7 +53,8 @@ public class Vendedor_Boundary extends Application {
 		btnPesquisar.setOnAction( e -> controlVendedor.pesquisar());
 		
 		Scene snc = new Scene(tela_pane,500,300);
-
+		
+		stage.setTitle("Cadastro de Vendedor");
 		stage.setResizable(false);
 		stage.setScene(snc);
 		stage.show();

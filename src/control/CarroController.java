@@ -2,11 +2,8 @@ package control;
 
 import dao.DAO_Carro;
 import entity.Carro;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.ListCell;
 
 public class CarroController {
 	DAO_Carro dao = new DAO_Carro();
@@ -26,7 +23,6 @@ public class CarroController {
 	private StringProperty cor = new SimpleStringProperty("");
 
 	private String placaEntity;
-	private String erroEntity;
 
 	public StringProperty placaProperty() {
 		return placa;
@@ -89,7 +85,6 @@ public class CarroController {
 		if (placaEntity.length() == 7) {
 			c.setPlaca(placaEntity);
 		} else {
-			erroEntity += "Placa Invalida ";
 		}
 		
 		c.setValor(Double.parseDouble(valor.get()));
@@ -102,7 +97,6 @@ public class CarroController {
 		try {
 			c.setAno(Integer.parseInt(ano.get()));
 		} catch (NumberFormatException e) {
-			erroEntity += "Ano Invalido ";
 		}
 
 		try {
@@ -150,7 +144,6 @@ public class CarroController {
 
 	public void adicionar() {
 		Carro c = new Carro();
-		System.out.println("Teste");
 		c = boundaryToEntity();
 		dao.inserir(c);
 	}

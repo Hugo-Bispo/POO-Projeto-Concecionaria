@@ -1,0 +1,45 @@
+CREATE DATABASE concessionaria_poo;
+USE concessionaria_poo
+
+CREATE TABLE carro(
+			placa char(7) not null,
+			modelo VARCHAR(20) not null,
+			versao VARCHAR(20) not null,
+			marca VARCHAR(20) not null,
+			valor double not null,
+			situacao CHAR(1) default 'D',
+			ano integer not null,
+			agencia VARCHAR(20),
+			quilometragem double,
+			cilindrada double,
+			combustivel VARCHAR(15),
+			cambio VARCHAR(15),
+			cor VARCHAR(15),
+			PRIMARY KEY(placa));	
+			
+			
+CREATE TABLE vendedor(
+			funcional INTEGER not null,
+			nome VARCHAR(50) not null,
+			telefone CHAR(11),
+			PRIMARY KEY(funcional));
+			
+CREATE TABLE carro_vendedor(
+			id_venda INTEGER AUTO_INCREMENT,
+			funcional INTEGER not null,
+			placa char(7) not null,
+			data_venda date,
+			PRIMARY KEY(id_venda),
+			FOREIGN KEY (funcional) REFERENCES vendedor(funcional),
+			FOREIGN KEY(placa) REFERENCES carro(placa),
+			UNIQUE KEY(placa));
+			
+INSERT INTO carro_vendedor(funcional, placa, data_venda) VALUES
+	(1, 'FOC7513', '2022-05-30');
+	
+"Todas as vendas Carro"
+SELECT v1.funcional, v1.placa, c1.modelo,
+		c1.versao, c1. marca, c1.cambio,
+		c1.cor, v1.data_venda, c1.valor
+		from carro_vendedor v1, carro c1
+		WHERE v1.funcional="1";
